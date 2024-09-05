@@ -14,4 +14,4 @@ def main():
     for n, a in amount.items():
         print(f"Amount after {n} years: ${a:.2f}")
 
-  main()
+main()
