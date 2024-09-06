@@ -1,6 +1,6 @@
 # Assignment: Target Heart-Rate Calculator
 # Author: Branden Quach
-# September 6, 2024
+# September 5, 2024
 # Calculates range and maximum heart rate from user's given age
 
 def main():
