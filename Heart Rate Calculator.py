@@ -22,7 +22,7 @@ def getValidAge():
         age = (float(input(f'Enter your age: ')))
         # Checks if age is greater than 0
         if age <= 0:
-            print(f'{getAge} is not a valid age. Please try again.')
+            print(f'{age} is not a valid age. Please try again.')
             return getValidAge()
         else:
             return age
