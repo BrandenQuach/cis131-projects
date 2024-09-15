@@ -30,6 +30,6 @@ def main():
       else:
           print(f'You should be able to do better!')
       replay = input(f'Do you want to play again? (yes/no): ')
-      if replay.lower() != 'yes' or replay != 'ye' or replay != 'y':
+      if replay.lower() != 'yes':
           break
 main()
