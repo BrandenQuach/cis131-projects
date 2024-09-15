@@ -30,7 +30,9 @@ def main():
         print(f'The overall average miles/gallon was {average:.6f}')
 def getValidGallons():
     try:
+        # Prompt for gallons
         getGallons = (float(input(f'Enter the gallons used (-1 to end): ')))
+        # Input validation
         if getGallons != -1 and getGallons < 0:
             print(f'Please enter a valid number.')
             return getValidGallons()
@@ -41,7 +43,9 @@ def getValidGallons():
         return getValidGallons()
 def getValidMiles():
     try:
+        # Prompt for miles
         getMiles = (float(input(f'Enter the miles driven: ')))
+        # Input validation
         if getMiles < 0:
             print(f'Please enter a valid number.')
             return getValidMiles()
