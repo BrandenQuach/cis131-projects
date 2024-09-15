@@ -4,17 +4,28 @@
 # Calculates the miles per gallon with user input
 
 def main():
+    # Variables
     totalGallons = 0
     totalMiles = 0
+    # Calls prompt for gallons
     getGallons = getValidGallons()
+    # While function for sentinel
     while getGallons != -1:
+        # Calls prompt for miles
         getMiles = getValidMiles()
+        # Calculates MPG
         total = getMiles / getGallons
+        # Gathers total gallons
         totalGallons += getGallons
+        # Gathers total miles
         totalMiles += getMiles
+        # Prints MPG results
         print(f'The miles/gallon for this tank was {total:.6f}')
+        # Calls prompt for gallons or sentinel
         getGallons = getValidGallons()
+    # Else for sentinel value entry
     else:
+        # Calculates total average of miles and gallons
         average = totalMiles / totalGallons
         print(f'The overall average miles/gallon was {average:.6f}')
 def getValidGallons():
