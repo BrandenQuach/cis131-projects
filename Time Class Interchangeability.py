@@ -3,6 +3,28 @@
 # October 3, 2024
 # Class modification to store time as total seconds since midnight.
 
+# Original 10.4.2 Time class
+class Time:
+    """Class Time with read-write properties."""
+
+    def __init__(self, hour=0, minute=0, second=0):
+        """Initialize each attribute."""
+        self.hour = hour # 0-23
+        self.minute = minute # 0-59
+        self.second = second # 0-59
+
+    def __repr__(self):
+        """Return Time string for repr()."""
+        return f'Time(hour={self.hour}, minute={self.minute}, second={self.second})'
+
+# Tests original Time class with given variables
+wake_up = Time(6, 30, 0)
+print(wake_up)
+
+wake_up.hour = 8
+print(wake_up)
+
+# Modified Time class to include total seconds
 class Time:
     """Class Time with read-write properties."""
 
@@ -65,7 +87,7 @@ class Time:
     def __repr__(self):
         return (f'Time(hour={self.hour}, minute={self.minute}, second={self.second}, total_seconds={self.total_seconds})')
 
-# Tests class with given variables
+# Tests new Time class with given variables
 wake_up = Time(8, 45, 50)
 print(wake_up)
 
