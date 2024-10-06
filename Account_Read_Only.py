@@ -19,16 +19,16 @@ class Account:
 
         self._name = name
         self._balance = balance
-
+    # Sets name to read-only
     @property
     def name(self):
         return self._name
-      
+    # Sets balance to read-only  
     @property
     def balance(self):
         return self._balance
 
-
+    
     def deposit(self, amount):
          """Deposit money to the account."""
 
@@ -37,9 +37,3 @@ class Account:
              raise ValueError('amount must be positive.')
 
          self._balance += amount
-
-account1 = Account('Branden', Decimal('100.00'))
-
-account1.deposit(Decimal('50.00'))
-print(account1.name)
-print(account1.balance)
