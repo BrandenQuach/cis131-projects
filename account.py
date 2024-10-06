@@ -1,4 +1,5 @@
 # account.py
+# Original account 10.2.2 program
 """Account class definition."""
 from decimal import Decimal
 
