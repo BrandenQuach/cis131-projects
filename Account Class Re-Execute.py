@@ -17,8 +17,8 @@ class Account:
         if balance < Decimal('0.00'):
             raise ValueError('Initial balance must be >= to 0.00.')
 
-        self.name = name
-        self.balance = balance
+        self._name = name
+        self._balance = balance
 
     @property
     def name(self):
@@ -36,7 +36,7 @@ class Account:
          if amount < Decimal('0.00'):
              raise ValueError('amount must be positive.')
 
-         self.balance += amount
+         self._balance += amount
 
 account1 = Account('Branden', Decimal('100.00'))
 
