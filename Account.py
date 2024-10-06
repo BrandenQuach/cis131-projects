@@ -3,7 +3,7 @@
 # October 5, 2024
 # Class modification to provide read-only properties for name and balance.
 
-# Original 10.2.2 Account class
+# Modified 10.2.2 Account Class
 """Account class definition."""
 from decimal import Decimal
 
@@ -43,5 +43,3 @@ account1 = Account('Branden', Decimal('100.00'))
 account1.deposit(Decimal('50.00'))
 print(account1.name)
 print(account1.balance)
-
-# Modified 10.2.2 Account class
