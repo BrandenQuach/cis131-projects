@@ -1,6 +1,6 @@
 # Assignment: Modifying The Internal Data Representation of a Class
 # Author: Branden Quach
-# October 3, 2024
+# October 6, 2024
 # Class modification to store time as total seconds since midnight.
 
 # Original 10.4.2 Time class
