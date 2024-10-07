@@ -1,6 +1,6 @@
 # Assignment: Modifying The Internal Data Representation of a Class
 # Author: Branden Quach
-# October 3, 2024
+# October 6, 2024
 # Class modification to store time as total seconds since midnight.
 
 class Time:
@@ -60,20 +60,13 @@ class Time:
         if not (0 <= value < 86400):
             raise ValueError(f'Total seconds must be between 0 and 86399.')
         self._total_seconds = value
+
+    def set_time(self, hour=0, minute=0, second=0):
+        """Set values of hour, minute, and second."""
+        self.hour = hour
+        self.minute = minute
+        self.second = second
         
     # Returns time string for repr()
     def __repr__(self):
         return (f'Time(hour={self.hour}, minute={self.minute}, second={self.second}, total_seconds={self.total_seconds})')
-
-# Tests class with given variables
-wake_up = Time(8, 45, 50)
-print(wake_up)
-
-wake_up.hour = 10
-print(wake_up)
-
-wake_up.minute = 30
-print(wake_up)
-
-wake_up.second = 30
-print(wake_up)
