@@ -6,6 +6,7 @@
 # Library
 from fractions import Fraction
 
+# Fractions class demonstration
 print(f'Fraction class demonstration:')
 
 # Fractions assigned to variables
