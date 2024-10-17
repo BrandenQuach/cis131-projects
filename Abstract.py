@@ -65,9 +65,9 @@ class HourlyEmployee(Employee):
     @hours_worked.setter
     def hours_worked(self, value: float):
         if not (0 <= value <= 168):
-            raise ValueError(f'Hours worked must be between 0 and 168.')
+            raise ValueError("Hours worked must be between 0 and 168.")
         self._hours_worked = value
-
+        
     @property
     def hourly_rate(self):
         return self._hourly_rate
