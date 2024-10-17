@@ -55,8 +55,8 @@ class SalariedEmployee(Employee):
 class HourlyEmployee(Employee):
     def __init__(self, first_name: str, last_name: str, ssn: str, hours_worked: float, hourly_rate: float):
         super().__init__(first_name, last_name, ssn)
-        self.hours_worked = hours_worked  # This calls the setter, initializing _hours_worked
-        self.hourly_rate = hourly_rate      # This calls the setter, initializing _hourly_rate
+        self.hours_worked = hours_worked
+        self.hourly_rate = hourly_rate
 
     @property
     def hours_worked(self):
