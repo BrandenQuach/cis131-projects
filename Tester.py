@@ -19,7 +19,7 @@ print(f'Salaried Employee Earnings: ${salaried_employee.earnings():.2f}')
 print(hourly_employee)
 print(f'Hourly Employee Earnings: ${hourly_employee.earnings():.2f}')
 
-employees = [salaried_employees, hourly_employees]
+employees = [salaried_employee, hourly_employee]
 for employee in employees:
     print()
     print(employee)
