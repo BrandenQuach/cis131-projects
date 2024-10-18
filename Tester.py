@@ -10,8 +10,8 @@ try:
 except TypeError as e:
     print(f'{e}')
 
-salaried_employee = SalariedEmployee('Joe', 'Smith', '123-45-6789')
-hourly_employee = HourlyEmployee('Sarah', 'Johnson', '135-79-2468')
+salaried_employee = SalariedEmployee('Joe', 'Smith', '123-45-6789', 2000)
+hourly_employee = HourlyEmployee('Sarah', 'Johnson', '135-79-2468', 40, 30)
 
 print(salaried_employee)
 print(f'Salaried Employee Earnings: ${salaried_employee.earnings():.2f}')
