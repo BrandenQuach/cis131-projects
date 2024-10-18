@@ -3,8 +3,7 @@
 # October 16, 2024
 # Creates an Abstract Base Class for Employees
 
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 class Employee(ABC):
     def __init__(self, first_name: str, last_name: str, ssn: str):
@@ -65,7 +64,7 @@ class HourlyEmployee(Employee):
     @hours_worked.setter
     def hours_worked(self, value: float):
         if not (0 <= value <= 168):
-            raise ValueError("Hours worked must be between 0 and 168.")
+            raise ValueError(f'Hours worked must be between 0 and 168.')
         self._hours_worked = value
         
     @property
