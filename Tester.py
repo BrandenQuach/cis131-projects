@@ -11,7 +11,7 @@ try:
     employee = Employee('Jeff', 'Jefferson', '987-65-4321')
 # Prints TypeError if employee creation isn't allowed
 except TypeError as e:
-    print(f'{e}')
+    print(f'{e}\n')
 
 # Assigns employee objects to variables
 salaried_employee = SalariedEmployee('Joe', 'Smith', '123-45-6789', 2000)
@@ -19,7 +19,7 @@ hourly_employee = HourlyEmployee('Sarah', 'Johnson', '135-79-2468', 40, 30)
 
 # Prints objects of salaried employee
 print(salaried_employee)
-print(f'Salaried Employee Earnings: ${salaried_employee.earnings():.2f}')
+print(f'Salaried Employee Earnings: ${salaried_employee.earnings():.2f}\n')
 
 # Prints objects of hourly employee
 print(hourly_employee)
