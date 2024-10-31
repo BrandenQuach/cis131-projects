@@ -9,7 +9,7 @@ def towers_of_hanoi(n, starting_peg, destination_peg, temporary_peg):
         return
     towers_of_hanoi(n - 1, starting_peg, temporary_peg, destination_peg)
     print(f'{starting_peg} to {destination_peg}')
-    towers_of_hanoi(n - 1, temporary_peg, target_peg, source_peg)
+    towers_of_hanoi(n - 1, temporary_peg, destination_peg, starting_peg)
 
 disks = 3
 towers_of_hanoi(disks, 1, 3, 2)
