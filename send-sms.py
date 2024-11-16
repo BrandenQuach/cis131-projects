@@ -7,7 +7,7 @@ sinch_client = SinchClient(
 )
 
 send_batch_response = sinch_client.sms.batches.send(
-    body="Internet Gas Gauge in AZ report delivered to email",
+    body="Internet Gas Gauge in AZ report has been delivered to email.",
     to=["19282509248"],
     from_="12085813506",
     delivery_report="none"
