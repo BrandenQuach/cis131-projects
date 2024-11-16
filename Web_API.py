@@ -5,7 +5,6 @@
 
 # Libraries
 import shodan, json, ezgmail, os
-import ezgmail
 
 # API key for shodan
 api_key = 'AL1GnuNI2grRMXwnzWtLcbBzSrotpwE8'
