@@ -1,8 +1,8 @@
 from sinch import SinchClient
 
 sinch_client = SinchClient(
-    key_id="YOUR_key_id",
-    key_secret="YOUR_key_secret",
+    key_id="7e13066c-5498-4434-beb9-65e6c815dc87",
+    key_secret="67Nnjs9XalfOBTGXx_EBnXUDuQ",
     project_id="9c4d9afd-f7b2-4f27-99da-f0ee939e3962"
 )
 
