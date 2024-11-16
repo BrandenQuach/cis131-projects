@@ -1,4 +1,4 @@
-# Lab: Shodan API for Python
+# Lab: Web API for Gmail and Sinch
 # Author: Branden Quach
 # November 15, 2024
 # Python program that queries Shodan for "'in-tank inventory' state:'AZ'", then emails report and sends an SMS.
