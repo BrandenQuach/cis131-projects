@@ -31,7 +31,7 @@ def shodan_query(query):
 results = shodan_query(query)
 
 # Creates variable for email body
-email_body = 'Results:\n'
+email_body = 'In-tank Inventory for Arizona report:\n'
 
 for result in results['matches']:
     # Prints data of all results into email body variable
