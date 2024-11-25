@@ -16,4 +16,4 @@ pd.read_sql("""SELECT titles.title, titles.copyright, titles.ISBN
                     ON titles.ISBN = author_ISBN.ISBN
                 INNER JOIN authors ON authors.ID = authors.ID
                 WHERE authors.last = 'Quirk'
-                ORDER BY title""", connection)
+                ORDER BY title""", connection).head()
