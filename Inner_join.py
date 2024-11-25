@@ -1,9 +1,19 @@
+# Lab: Software Engineering with Abstract Classes and Abstract Methods
+# Author: Branden Quach
+# November 24, 2024
+
+# Libraries
 import sqlite3
 import pandas as pd
 
+# Connection object
 connection = sqlite3.connect('books.db')
 
-pd.read_sql("""SELECT isbn, title, edition, copyright, last
-            FROM authors, titles
-            WHERE last LIKE '%Quirk'
-            ORDER BY last ASC""", connection)
+# Selects all books for Author with the last name Quirk
+pd.read_sql("""SELECT titles.title, titles.copyright, titles.ISBN
+                FROM titles
+                INNER JOIN author_ISBN
+                    ON titles.ISBN = author_ISBN.ISBN
+                INNER JOIN authors ON authors.ID = authors.ID
+                WHERE authors.last = 'Quirk'
+                ORDER BY title""", connection)
