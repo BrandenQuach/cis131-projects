@@ -1,4 +1,4 @@
-# Lab: Software Engineering with Abstract Classes and Abstract Methods
+# Lab: Books Database
 # Author: Branden Quach
 # November 24, 2024
 
