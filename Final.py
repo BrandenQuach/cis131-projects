@@ -22,7 +22,7 @@ class Car:
             self.due_date = datetime.datetime.now() + datetime.timedelta(days=rental_days)
             return f'Car {self.car_id} has been rented for {rental_days} days.'
         else:
-            return f'Car not available.'
+            return f'Car not available for rental.'
 
 class Customer:
     def __init__(self, customer_id, name, contact_info):
