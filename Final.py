@@ -4,6 +4,9 @@
 # Rental Car Management system.
 
 import json
+import heapq
+from collections import deque
+from bisect import bisect_left
 
 class Car:
     def __init__(self, car_id, type, make, model, availability, rental_price, miles, maintenance):
@@ -36,4 +39,88 @@ class Luxury(Car):
     def apply_discount(self, rental_price):
         return rental_price - (rental_price * self.vip_discount)
 
-class
+class Electric(Car):
+    def __init(self, car_id, make, model, availability, rental_price, maintenance):
+        super().__init__(car_id, make, model, availability, rental_price, maintenance)
+
+class Customer:
+    def __init__(self, customer_id, name, contact_info, rental_history=None):
+        self.customer_id = customer_id
+        self.name = name
+        self.contact_info = contact_info
+        self.rental_history = rental_history if rental_history else []
+
+    def add_rental(self, car_id):
+        self.rental_history.append(car_id)
+
+class VIP(Customer):
+    def __init__(self, customer_id, name, contact_info, rental_history=None):
+        super().__init__(customer_id, name, contact_info, rental_history)
+
+    def priority_booking(self, car_queue):
+        heapq.heappush(car_queue, (self.customer_id, self))
+
+class RentalSystem:
+    def __init__(self):
+        self.available_cars = deque()
+        self.recently_rented = []
+        self.vip_queue = []
+        self.car_db = {}
+        self.customer_db = {}
+
+    def load_data(self):
+        try:
+            with open('carinfo.json', 'r') as f:
+                cars_data = json.load(f)
+                for car_data in cars_data:
+                    car = Car(**car_data)
+                    self.car_db[car.car_id] = car
+                    if car.availability:
+                        self.available_cars.append(car)
+        except FileNotFoundError:
+            print(f'Car file not found.')
+
+        try:
+            with open('customerinfo.json', 'r') as f:
+                customers_data = json.load(f)
+                for customer_data in customers_data:
+                    if customer_data.get('vip'):
+                        customer = VIP(**customer_data)
+                    else:
+                        customer = Customer(**customer_data)
+                    self.customer_db[customer.customer_id] = customer
+        except FileNotFoundError:
+            print(f'Customer file not found.')
+
+    def rent_car(self, customer_id, car_id):
+        customer = self.customer_db.get(customer_id)
+        car = self.car_db.get(car_id)
+
+        if not customer:
+            print(f'Customer not found.')
+            return
+
+        if not car or not car.availability:
+            print(f'Car {car_id} is not available.')
+            return
+
+        car.rent_car()
+        customer.add_rental(car_id)
+        self.recently_rented_cars.append(car)
+        print(f'Car {car_id} rented to {customer.name}.')
+
+    def return_car(self, car_id):
+        car = self.car_db.get(car_id)
+        if not car:
+            print(f'Car {car_id} not found.')
+            return
+
+        car.return_car()
+        self.available_cars.append(car)
+        self.recently_rented_cars.remove(car)
+        print(f'Car {car_id} returned.')
+
+    def report(self):
+        rented_cars = [car.car_id for car in self.recently_rented_cars]
+        print(f'Rented car: {rented_cars}')
+        
