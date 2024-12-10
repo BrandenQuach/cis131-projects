@@ -32,7 +32,7 @@ class Car:
 
 class Luxury(Car):
     def __init__(self, car_id, make, model, availability, rental_price, maintenance, vip_discount):
-        super().__init__(car_id, make, model, availability, rental_price, maintenance)
+        super().__init__(car_id, 'Luxury', make, model, availability, rental_price, maintenance)
         self.vip_discount = vip_discount
 
     def apply_discount(self, rental_price):
@@ -40,7 +40,7 @@ class Luxury(Car):
 
 class Electric(Car):
     def __init__(self, car_id, make, model, availability, rental_price, maintenance):
-        super().__init__(car_id, make, model, availability, rental_price, maintenance)
+        super().__init__(car_id, 'Electric', make, model, availability, rental_price, maintenance)
 
 class Customer:
     def __init__(self, customer_id, name, contact_info, rental_history=None):
