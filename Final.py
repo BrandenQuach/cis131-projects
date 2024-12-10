@@ -5,7 +5,6 @@
 
 import json
 import heapq
-from collections import deque
 from bisect import bisect_left
 
 class Car:
@@ -40,7 +39,7 @@ class Luxury(Car):
         return rental_price - (rental_price * self.vip_discount)
 
 class Electric(Car):
-    def __init(self, car_id, make, model, availability, rental_price, maintenance):
+    def __init__(self, car_id, make, model, availability, rental_price, maintenance):
         super().__init__(car_id, make, model, availability, rental_price, maintenance)
 
 class Customer:
@@ -58,11 +57,11 @@ class VIP(Customer):
         super().__init__(customer_id, name, contact_info, rental_history)
 
     def priority_booking(self, car_queue):
-        heapq.heappush(car_queue, (self.customer_id, self))
+        heapq.heappush(car_queue, (-self.customer_id, self))
 
 class RentalSystem:
     def __init__(self):
-        self.available_cars = deque()
+        self.available_cars = []
         self.recently_rented = []
         self.vip_queue = []
         self.car_db = {}
@@ -73,7 +72,12 @@ class RentalSystem:
             with open('carinfo.json', 'r') as f:
                 cars_data = json.load(f)
                 for car_data in cars_data:
-                    car = Car(**car_data)
+                    if car_data.get('type') == 'Luxury':
+                        car = Luxury(**car_data)
+                    elif car_data.get('type') == 'Electric':
+                        car = Electric(**car_data)
+                    else:
+                        car = Car(**car_data)
                     self.car_db[car.car_id] = car
                     if car.availability:
                         self.available_cars.append(car)
@@ -106,8 +110,11 @@ class RentalSystem:
 
         car.rent_car()
         customer.add_rental(car_id)
-        self.recently_rented_cars.append(car)
+        self.recently_rented.append(car)
         print(f'Car {car_id} rented to {customer.name}.')
+        if isinstance(car, Luxury) and isinstance(customer, VIP):
+            discounted_price = car.apply_discount(car.rental_price)
+            print(f'VIP discount: {discounted_price}')
 
     def return_car(self, car_id):
         car = self.car_db.get(car_id)
@@ -117,10 +124,10 @@ class RentalSystem:
 
         car.return_car()
         self.available_cars.append(car)
-        self.recently_rented_cars.remove(car)
+        self.recently_rented.remove(car)
         print(f'Car {car_id} returned.')
 
     def report(self):
-        rented_cars = [car.car_id for car in self.recently_rented_cars]
-        print(f'Rented car: {rented_cars}')
+        rented_cars = [f'{car.car_id} : {car.make} {car.model}' for car in self.recently_rented]
+        print(f'Rented car: {", ".join(rented_cars)}')
         
