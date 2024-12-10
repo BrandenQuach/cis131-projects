@@ -31,7 +31,7 @@ class Car:
         return f'Car ID: {self.car_id}, Type: {self.type}, Make: {self.make}, Model: {self.model}, Availability: {self.availability}, Rental Price: {self.rental_price}, Miles: {self.miles}, Maintenance: {self.maintenance}'
 
 class Luxury(Car):
-    def __init__(self, car_id, make, model, availability, rental_price, maintenance, vip_discount):
+    def __init__(self, car_id, type, make, model, availability, rental_price, maintenance, vip_discount):
         super().__init__(car_id, 'Luxury', make, model, availability, rental_price, maintenance)
         self.vip_discount = vip_discount
 
@@ -39,7 +39,7 @@ class Luxury(Car):
         return rental_price - (rental_price * self.vip_discount)
 
 class Electric(Car):
-    def __init__(self, car_id, make, model, availability, rental_price, maintenance):
+    def __init__(self, car_id, type, make, model, availability, rental_price, maintenance):
         super().__init__(car_id, 'Electric', make, model, availability, rental_price, maintenance)
 
 class Customer:
