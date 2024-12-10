@@ -31,16 +31,16 @@ class Car:
         return f'Car ID: {self.car_id}, Type: {self.type}, Make: {self.make}, Model: {self.model}, Availability: {self.availability}, Rental Price: {self.rental_price}, Miles: {self.miles}, Maintenance: {self.maintenance}'
 
 class Luxury(Car):
-    def __init__(self, car_id, type, make, model, availability, rental_price, maintenance, vip_discount):
-        super().__init__(car_id, 'Luxury', make, model, availability, rental_price, maintenance)
+    def __init__(self, car_id, make, model, availability, rental_price, miles, maintenance, vip_discount=0.0):
+        super().__init__(car_id, 'Luxury', make, model, availability, rental_price, miles, maintenance)
         self.vip_discount = vip_discount
 
     def apply_discount(self, rental_price):
         return rental_price - (rental_price * self.vip_discount)
 
 class Electric(Car):
-    def __init__(self, car_id, type, make, model, availability, rental_price, maintenance):
-        super().__init__(car_id, 'Electric', make, model, availability, rental_price, maintenance)
+    def __init__(self, car_id, make, model, availability, rental_price, miles, maintenance):
+        super().__init__(car_id, 'Electric', make, model, availability, rental_price, miles, maintenance)
 
 class Customer:
     def __init__(self, customer_id, name, contact_info, rental_history=None):
@@ -73,14 +73,42 @@ class RentalSystem:
                 cars_data = json.load(f)
                 for car_data in cars_data:
                     if car_data.get('type') == 'Luxury':
-                        car = Luxury(**car_data)
+                        car = Luxury(
+                        car_data['car_id'],
+                        car_data['make'],
+                        car_data['model'],
+                        car_data['availability'],
+                        car_data['rental_price'],
+                        car_data['miles'],
+                        car_data['maintenance'],
+                        car_data.get('vip_discount', 0.0)
+                        )
                     elif car_data.get('type') == 'Electric':
-                        car = Electric(**car_data)
+                        car = Electric(
+                        car_data['car_id'],
+                        car_data['make'],
+                        car_data['model'],
+                        car_data['availability'],
+                        car_data['rental_price'],
+                        car_data['miles'],
+                        car_data['maintenance']
+                        )
                     else:
-                        car = Car(**car_data)
+                        car = Car(
+                        car_data['car_id'],
+                        car_data['type'],
+                        car_data['make'],
+                        car_data['model'],
+                        car_data['availability'],
+                        car_data['rental_price'],
+                        car_data['miles'],
+                        car_data['maintenance']
+                    )
+                    
                     self.car_db[car.car_id] = car
                     if car.availability:
                         self.available_cars.append(car)
+                        
         except FileNotFoundError:
             print(f'Car file not found.')
 
