@@ -53,8 +53,9 @@ class Customer:
         self.rental_history.append(car_id)
 
 class VIP(Customer):
-    def __init__(self, customer_id, name, contact_info, rental_history=None):
+    def __init__(self, customer_id, name, contact_info, rental_history=None, vip=False):
         super().__init__(customer_id, name, contact_info, rental_history)
+        self.vip = vip
 
     def priority_booking(self, car_queue):
         heapq.heappush(car_queue, (-self.customer_id, self))
@@ -116,7 +117,7 @@ class RentalSystem:
             with open('customerinfo.json', 'r') as f:
                 customers_data = json.load(f)
                 for customer_data in customers_data:
-                    if customer_data.get('vip'):
+                    if customer_data.get('vip', False):
                         customer = VIP(**customer_data)
                     else:
                         customer = Customer(**customer_data)
