@@ -167,6 +167,41 @@ class RentalSystem:
         self.recently_rented.remove(car)
         print(f'Car {car_id} returned.')
 
+    def save_cars(self):
+        cars_data = []
+        for car in self.car_db.values():
+            car_info = {
+                'car_id': car.car_id,
+                'type': car.type,
+                'make': car.make,
+                'model': car.model,
+                'availability': car.availability,
+                'rental_price': car.rental_price,
+                'miles': car.miles,
+                'maintenance': car.maintenance,
+            }
+            if isinstance(car, Luxury):
+                car_info['vip_discount'] = car.vip_discount
+            cars_data.append(car_info)
+
+        with open('carinfo.json', 'w') as f:
+            json.dump(cars_data, f, indent=4)
+
+    def save_customers(self):
+        customers_data = []
+        for customer in self.customer_db.values():
+            customer_info = {
+                'customer_id': customer.customer_id,
+                'name': customer.name,
+                'contact_info': customer.contact_info,
+                'rental_history': customer.rental_history,
+                'vip': getattr(customer, 'vip', False)
+            }
+            customer_data.append(customer_info)
+
+        with open('customerinfo.json', 'w') as f:
+            json.dump(customers_data, f, indent=4)
+
     def report(self):
         rented_cars = [f'{car.car_id} : {car.make} {car.model}' for car in self.recently_rented]
         print(f'Rented car: {", ".join(rented_cars)}')
