@@ -197,7 +197,7 @@ class RentalSystem:
                 'rental_history': customer.rental_history,
                 'vip': getattr(customer, 'vip', False)
             }
-            customer_data.append(customer_info)
+            customers_data.append(customer_info)
 
         with open('customerinfo.json', 'w') as f:
             json.dump(customers_data, f, indent=4)
