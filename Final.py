@@ -118,9 +118,20 @@ class RentalSystem:
                 customers_data = json.load(f)
                 for customer_data in customers_data:
                     if customer_data.get('vip', False):
-                        customer = VIP(**customer_data)
+                        customer = VIP(
+                            customer_data['customer_id'],
+                            customer_data['name'],
+                            customer_data['contact_info'],
+                            customer_data.get('rental_history', []),
+                            vip = customer_data.get('vip', False)
+                        )
                     else:
-                        customer = Customer(**customer_data)
+                        customer = Customer(
+                            customer_data['customer_id'],
+                            customer_data['name'],
+                            customer_data['contact_info'],
+                            customer_data.get('rental_history', [])
+                        )
                     self.customer_db[customer.customer_id] = customer
         except FileNotFoundError:
             print(f'Customer file not found.')
