@@ -256,3 +256,4 @@ def get_positive_integer_input(prompt): # Integer input validation function
             get_positive_integer_input(prompt) # Returns prompt
 
 if __name__ == "__main__": # Executes program
+    main()
