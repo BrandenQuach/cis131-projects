@@ -5,7 +5,6 @@
 
 import json
 import heapq
-from bisect import bisect_left
 
 class Car:
     def __init__(self, car_id, type, make, model, availability, rental_price, miles, maintenance):
@@ -43,30 +42,99 @@ class Electric(Car):
         super().__init__(car_id, 'Electric', make, model, availability, rental_price, miles, maintenance)
 
 class Customer:
-    def __init__(self, customer_id, name, contact_info, rental_history=None):
+    def __init__(self, customer_id, name, contact_info, rental_history=None, vip=False):
         self.customer_id = customer_id
         self.name = name
         self.contact_info = contact_info
         self.rental_history = rental_history if rental_history else []
+        self.vip = vip
 
     def add_rental(self, car_id):
         self.rental_history.append(car_id)
 
-class VIP(Customer):
-    def __init__(self, customer_id, name, contact_info, rental_history=None, vip=False):
-        super().__init__(customer_id, name, contact_info, rental_history)
-        self.vip = vip
+    def __str__(self):
+        vip_status = "VIP" if self.vip else "Regular"
+        return f"{self.name} (ID: {self.customer_id}, Status: {vip_status})"
 
-    def priority_booking(self, car_queue):
-        heapq.heappush(car_queue, (-self.customer_id, self))
+class VIP(Customer):
+    def __init__(self, customer_id, name, contact_info, rental_history=None, vip=True):
+        super().__init__(customer_id, name, contact_info, rental_history, vip=vip)
+
+def get_positive_integer_input(prompt):
+        try:
+            value = int(input(prompt))
+            if value < 0:
+                print("Please enter a positive number.")
+                get_positive_integer_input(prompt)
+            else:
+                return value
+        except ValueError:
+            print("Invalid input! Please enter a valid positive number.")
+            get_positive_integer_input(prompt)
 
 class RentalSystem:
     def __init__(self):
         self.available_cars = []
         self.recently_rented = []
-        self.vip_queue = []
         self.car_db = {}
         self.customer_db = {}
+        self.next_car = 1
+        self.next_customer = 1
+
+    def add_car(self, type, make, model, rental_price, miles, maintenance, vip_discount=0.0):
+        car_id = self.next_car
+        
+        while car_id in self.car_db:
+            car_id += 1
+        
+        self.next_car = car_id + 1
+
+        if type == 'Luxury':
+            car = Luxury(car_id, make, model, True, rental_price, miles, maintenance, vip_discount)
+        elif type == 'Electric':
+            car = Electric(car_id, make, model, True, rental_price, miles, maintenance)
+        else:
+            car = Car(car_id, type, make, model, True, rental_price, miles, maintenance)
+
+        self.car_db[car_id] = car
+        self.available_cars.append(car)
+
+        print(f"New car added with ID: {car_id}")
+
+    def add_customer(self, name, contact_info, vip=False):
+        customer_id = self.next_customer
+        
+        while customer_id in self.customer_db:
+            print(f"Customer ID {customer_id} already exists. Incrementing ID.")
+            customer_id += 1
+        
+        self.next_customer = customer_id + 1
+        
+        customer = Customer(customer_id, name, contact_info, vip=vip)
+        self.customer_db[customer_id] = customer
+
+        if vip:
+            print(f"VIP Customer added with ID: {customer_id}")
+        else:
+            print(f"Regular Customer added with ID: {customer_id}")
+
+    def view_customer_rental_history(self, customer_id):
+        """View the rental history of a customer."""
+        customer = self.customer_db.get(customer_id)
+        if not customer:
+            print(f"Customer with ID {customer_id} not found.")
+            return
+        
+        if not customer.rental_history:
+            print(f"{customer.name} has no rental history.")
+        else:
+            print(f"Rental History for {customer.name} (ID: {customer.customer_id}):")
+            for car_id in customer.rental_history:
+                car = self.car_db.get(car_id)
+                if car:
+                    print(f"Car ID: {car.car_id}, Make: {car.make}, Model: {car.model}")
+                else:
+                    print(f"Car ID: {car_id} not found in the system.")
 
     def load_data(self):
         try:
@@ -143,15 +211,19 @@ class RentalSystem:
         if not customer:
             print(f'Customer not found.')
             return
-
+        
         if not car or not car.availability:
             print(f'Car {car_id} is not available.')
             return
 
         car.rent_car()
         customer.add_rental(car_id)
+
+        self.available_cars.remove(car)
         self.recently_rented.append(car)
+        
         print(f'Car {car_id} rented to {customer.name}.')
+        
         if isinstance(car, Luxury) and isinstance(customer, VIP):
             discounted_price = car.apply_discount(car.rental_price)
             print(f'VIP discount: {discounted_price}')
@@ -163,9 +235,29 @@ class RentalSystem:
             return
 
         car.return_car()
+        
         self.available_cars.append(car)
         self.recently_rented.remove(car)
-        print(f'Car {car_id} returned.')
+        
+        print(f"\nCar {car_id} has been returned and is now available for rent.\n")
+
+        update = input("Do you want to update the miles and maintenance for this car? (y/n): ").strip().lower()
+        if update == 'y':
+            new_miles = get_positive_integer_input("Enter the new miles: ")
+            new_maintenance = get_positive_integer_input("Enter the new maintenance threshold: ")
+            
+            car.miles = new_miles
+            car.maintenance = new_maintenance
+
+            if car.miles > car.maintenance:
+                print(f"Warning: Car {car_id} has exceeded its maintenance threshold!")
+                return
+            
+            print(f"Car ID {car_id} miles and maintenance updated.")
+            return
+        else:
+            print("No updates made to the car.")
+            return
 
     def save_cars(self):
         cars_data = []
@@ -203,6 +295,6 @@ class RentalSystem:
             json.dump(customers_data, f, indent=4)
 
     def report(self):
-        rented_cars = [f'{car.car_id} : {car.make} {car.model}' for car in self.recently_rented]
-        print(f'Rented car: {", ".join(rented_cars)}')
-        
+        for car in self.car_db.values():
+            status = "Rented" if car in self.recently_rented else "Available"
+            print(f"Car ID: {car.car_id}, Type: {car.type}, Make: {car.make}, Model: {car.model}, Status: {status}")
