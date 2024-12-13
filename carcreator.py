@@ -1,6 +1,6 @@
 import json
 
-car_info = [
+car_info = [ # Creates list of cars for testing
     {
         "car_id": 1,
         "type": "Luxury",
@@ -44,7 +44,7 @@ car_info = [
     }
 ]
 
-json_object = json.dumps(car_info, indent=4)
+json_object = json.dumps(car_info, indent=4) # Converts car list into json format
 
-with open('carinfo.json', 'w') as f:
+with open('carinfo.json', 'w') as f: # Writes converted car list into json file
     f.write(json_object)
