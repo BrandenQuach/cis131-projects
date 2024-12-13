@@ -139,7 +139,7 @@ def sort_and_display_cars(rental_system): # Sorting cars menu
     elif choice == '7':
         key = lambda car: car.maintenance
     else:
-        print("Invalid option!")
+        print("Invalid option. Please try again.") # Input validation
         return
 
     sorted_cars = sorted(rental_system.car_db.values(), key=key) # Sorts cars based off choice
