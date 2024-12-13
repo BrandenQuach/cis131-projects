@@ -1,6 +1,6 @@
 import json
 
-customer_info = [
+customer_info = [ # Creates list of customers for testing
     {
         "customer_id": 1,
         "name": "John Doe",
@@ -27,7 +27,7 @@ customer_info = [
     }
 ]
 
-json_object = json.dumps(customer_info, indent=4)
+json_object = json.dumps(customer_info, indent=4) # Converts customer list into json format
 
-with open('customerinfo.json', 'w') as f:
+with open('customerinfo.json', 'w') as f: # Writes converted customer list into json file
     f.write(json_object)
