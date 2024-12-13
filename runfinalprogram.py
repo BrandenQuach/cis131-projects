@@ -254,3 +254,5 @@ def get_positive_integer_input(prompt): # Integer input validation function
         except ValueError: # Checks for nonnumbers
             print("Invalid input! Please enter a valid positive number.")
             get_positive_integer_input(prompt) # Returns prompt
+
+if __name__ == "__main__":
