@@ -162,6 +162,7 @@ def sort_and_display_customers(rental_system): # Sorting customers menu
     elif choice == '3':
         key = lambda customer: customer.contact_info
     elif choice == '4':
+        view_customers(rental_system)
         customer_id = int(input("Enter customer ID to view rental history: "))
         rental_system.view_customer_rental_history(customer_id)
         return
