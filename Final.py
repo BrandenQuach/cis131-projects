@@ -3,7 +3,7 @@
 # December 7, 2024
 # Rental Car Management system
 
-import json
+import json # File management
 import heapq # Priority queue
 
 class Car: # Car class
