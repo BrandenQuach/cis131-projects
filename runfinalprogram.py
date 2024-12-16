@@ -3,7 +3,7 @@
 # December 7, 2024
 # Runs Rental Car Program
 
-from Final import RentalSystem
+from Final import RentalSystem # Source file and module
 
 def main(): # Main function
     rental_system = RentalSystem() # Links class to variable
