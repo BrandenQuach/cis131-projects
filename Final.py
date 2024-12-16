@@ -241,7 +241,7 @@ class RentalSystem: # Main rental system class
             new_miles = get_positive_integer_input("Enter the new miles: ") # Prompts user for new mileage
             new_maintenance = get_positive_integer_input("Enter the new maintenance schedule: ") # Prompts user for new maintenance mile schedule amount
             
-            car.miles = new_miles # Applies changes to car miles
+            car.miles = int(new_miles) # Applies changes to car miles
             car.maintenance = new_maintenance # Applies changes to car maintenance
 
             if car.miles > car.maintenance: # Checks for mileage greater than car maintenance schedule
