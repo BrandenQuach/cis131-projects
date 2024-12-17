@@ -58,16 +58,15 @@ class VIP(Customer): # VIP customer class
         super().__init__(customer_id, name, contact_info, rental_history, vip=vip) # Super class reference
 
 def get_positive_integer_input(prompt): # Integer input validation function
+    while True: # While loop
         try:
             value = int(input(prompt)) # Checks for proper integer input
             if value < 0: # Checks for negative numbers
                 print("Please enter a positive number.")
-                get_positive_integer_input(prompt) # Returns prompt
             else:
                 return value # Returns proper integer
         except ValueError: # Checks for nonnumbers
             print("Invalid input! Please enter a valid positive number.")
-            get_positive_integer_input(prompt) # Returns prompt
 
 class RentalSystem: # Main rental system class
     def __init__(self): # Initiates all rental attributes
