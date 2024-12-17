@@ -245,7 +245,7 @@ def report_interface(rental_system): # Rental report function
     rental_system.report() # Calls report function
 
 def get_positive_integer_input(prompt): # Integer input validation function
-    while True:
+    while True: # While loop
         try:
             value = int(input(prompt)) # Checks for proper integer input
             if value < 0: # Checks for negative numbers
