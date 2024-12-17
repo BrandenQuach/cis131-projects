@@ -245,16 +245,15 @@ def report_interface(rental_system): # Rental report function
     rental_system.report() # Calls report function
 
 def get_positive_integer_input(prompt): # Integer input validation function
+    while True:
         try:
             value = int(input(prompt)) # Checks for proper integer input
             if value < 0: # Checks for negative numbers
                 print("Please enter a positive number.")
-                get_positive_integer_input(prompt) # Returns prompt
             else:
                 return value # Returns proper integer
         except ValueError: # Checks for nonnumbers
             print("Invalid input! Please enter a valid positive number.")
-            get_positive_integer_input(prompt) # Returns prompt
 
 if __name__ == "__main__": # Executes program
     main()
